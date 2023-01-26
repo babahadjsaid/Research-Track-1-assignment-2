@@ -22,56 +22,109 @@ The following graph demonstrate the connection between nodes:
 The content of the code is described by the following pseudocode:
 - actionClient_node:(this the answer to first part of question 1 )
 ```console
-    - Initialize a ROS node
-    - Create an action client for the "reaching_goal" action
-    - Wait for the action server to start
-    - While (true)
-        a. Ask the user to input a target position (x,y) or the option to cancel or exit
-        b. If the user enters "c", cancel the current goal
-        c. If the user enters "q", exit the node
-        d. If the user enters a target position, create a goal with the x and y coordinates
-        e. Send the goal to the action server
-    - End the node
+    initialize node
+    create action client
+    initialize goal
+
+    while true:
+        prompt user for input
+        if input is "cancel"
+            cancel goal
+        else if input is "exit"
+            break loop
+        else
+            parse input for x and y coordinates
+            set goal coordinates to x and y
+            send goal to action
 ```
 - duplicateOdom: (this the answer to second part of question 1 )
 ```console
-    - Include necessary headers
-    - Declare variables for linear and angular velocities and position
-    - Create callback functions for odometry and cmd_vel subscribers
-    - Initialize ROS node and subscribers
-    - Declare publisher for duplicated odometry topic
-    - Get publishing frequency from a parameter
-    - Create a loop that runs at the specified frequency
-    - Within the loop, populate a custom message with the stored position, linear velocity, and   angular velocity
-        a. Publish the custom message
-        b. Sleep for the specified time
-        c. Spin once to process callbacks
-    - Return 0 at the end of the main function
+    Initialize ROS node
+
+    Create subscribers for "/odom" and "/cmd_vel" topics, with callbacks "OdomCallback" and "CmdvelCallback" respectively
+
+    Create publisher for "duplicatedOdom" topic
+
+    Print message to indicate the starting of the loop
+
+    Retrieve the value of parameter "/PublishFreq" and store it in variable "Pub_Freq"
+
+    Create a rate object with the value of "Pub_Freq"
+
+    While True:
+        Populate custom message "my_msg" with the values of "pose", "angular_vel", and "linear_vel"
+        Publish "my_msg" on the "duplicatedOdom" topic
+        Sleep for the duration of 1/Pub_Freq
+        Spin once for callbacks
 ```
 - custom_service: (this the answer to the question 2 )
 ```console
-- Import necessary libraries and headers including ROS, actionlib, custom action message, std_msgs, and std_srvs.
-- Declare global variables for goal status tracking and publisher for custom message.
-- Define a callback function for subscribing to goal status updates, which increments counters for reached and cancelled goals and publishes the updates on a custom topic.
-- Define a callback function for the custom service, which prints the number of reached and cancelled goals when called.
-- In the main function, initialize a ROS node and create a subscriber to listen to the goal status topic.
-- Create a publisher for the custom message topic and a service server for the custom service.
-- Spin the ROS node to execute callbacks.
-- End the main function and return 0.
+    initialize variables: status, tmp, num_reached_goal, num_canceled
+    create publisher: "custom_service_topic"
+
+    define callback function MyCallBack:
+    if message status list is not empty
+        set status to the first status in the list
+    if status is 3 (goal reached)
+        if status is not equal to tmp
+        increment num_reached_goal
+        create message with the current value of num_reached_goal
+        publish message on "custom_service_topic"
+    else if status is 2 (goal canceled)
+        if status is not equal to tmp
+        increment num_canceled
+        create message with the current value of num_canceled
+        publish message on "custom_service_topic"
+    set tmp to status
+
+    define callback function callback:
+    print the number of goal reached and the number of goal canceled
+    set success to true in response
+    return true
+
+    in main function:
+    initialize ros node "custom_service"
+    create a subscriber to listen to the status on topic "/reaching_goal/status"
+    create a service "my_custom_server_topic"
+    ros spin to execute callback
+    return 0
 ```
 
 - Subscriber: (this the answer to the question 3 )
 ``` console
-- import necessary libraries and headers
-- declare variables for custom message, goal, start and end time points, status, starting pose
-- Define callback functions:
-    a. MyCallBack: to get the status of the goal and calculate distance traveled and average speed when the status is reached
-    b. CustomMessageCallback: to update the custom message 
-    c. goalCallback: to update the goal and save the starting position
-- Initialize the node
-- Create subscribers for the custom message, goal, and status topic
-- Spin the node to keep it running and wait for callbacks
-- end the program
+    Initialize variables: my_msg, goal, start, end, status, tmp, startingpose
+
+    Define callback function MyCallBack(status_msg)
+        If status_msg is not empty
+            status = status_msg[0].status
+        If status is 3 (goal completed)
+            If status is not equal to tmp
+                end = current time
+                duration = end - start
+                distanceTraveled = calculate distance between startingpose and my_msg.pose
+                avgspeed = distanceTraveled / (duration in seconds)
+                Print results
+            tmp = status
+
+    Define callback function CustomMessageCallback(custom_msg)
+        my_msg = custom_msg
+        start = current time
+
+    Define callback function goalCallback(goal_msg)
+        goal = goal_msg
+        startingpose = my_msg.pose
+
+    Initialize ROS node
+
+    Subscribe to topics: /duplicatedOdom, /reaching_goal/goal, /reaching_goal/status
+    with respective callback functions: CustomMessageCallback, goalCallback, MyCallBack
+
+    Print message "starting the loop"
+
+    Spin the loop
+
+    Return 0
+
 ```
 
 ## How to run the code

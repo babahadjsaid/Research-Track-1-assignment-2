@@ -1,6 +1,6 @@
 <launch>
 <param name="PublishFreq" value="10" type="int"/>
-  <node name="actionClient_node" pkg="client_action" type="actionClient_node" output="screen"/>
+ <include file="$(find assignment_2_2022)/launch/assignment1.launch"/>
   <node name="Subscriber" pkg="client_action" type="Subscriber" output="screen"/>
   <node name="duplicateOdom" pkg="client_action" type="duplicateOdom" output="screen"/>
   <node name="custom_service" pkg="client_action" type="custom_service" output="screen"/>

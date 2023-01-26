@@ -132,4 +132,7 @@ The content of the code is described by the following pseudocode:
 To run the code, simply write the following command in the terminal:<br/>
 ``` 
     roslaunch client_action assignment2.launch
+    rosrun client_action actionClient_node
     ```
+##Launching the Nodes
+The launch file for the assignment_2_2022 package is included in the project, however, it should be noted that the actionClient_node, which is a user interface, must be run separately in a new terminal. This is because running it within the launch file may cause interference with the output of the other nodes. To run the actionClient_node, use the command `rosrun client_action actionClient_node` in a new terminal. The other nodes can then be launched using the included launch file with the command `roslaunch client_action assignment2.launch`.

@@ -26,7 +26,7 @@ void MyCallBack(const actionlib_msgs::GoalStatusArray::ConstPtr& msg){
         auto distanceTraveled = sqrt((pow(my_msg.pose.x - startingpose.x,2) + pow(my_msg.pose.y - startingpose.y,2) ));  // calculate the distance traveled
         auto d = duration.count() / 1000000.0;  // convert the duration to seconds
         auto avgspeed = distanceTraveled/d;  // calculate the average speed
-        ROS_INFO("the distance traveled is %f, and the average speed is %f and the time is %f , %ld",distanceTraveled,avgspeed,d,duration.count());  // print the results
+        ROS_INFO("the distance traveled is %f, and the average speed is %f.",distanceTraveled,avgspeed);  // print the results
       }
     }
     tmp = status;

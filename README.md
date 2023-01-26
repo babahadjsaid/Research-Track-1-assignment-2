@@ -130,6 +130,6 @@ The content of the code is described by the following pseudocode:
 ## How to run the code
 
 To run the code, simply write the following command in the terminal:<br/>
-    ```console
-     roslaunch client_action assignment2.launch
-     ```
+``` 
+    roslaunch client_action assignment2.launch
+    ```

@@ -1,0 +1,3 @@
+geometry_msgs/Point pose
+geometry_msgs/Vector3 linear_vel
+geometry_msgs/Vector3 angular_vel

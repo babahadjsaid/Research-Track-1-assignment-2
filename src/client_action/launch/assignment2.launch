@@ -1,0 +1,8 @@
+<launch>
+<param name="PublishFreq" value="10" type="int"/>
+  <node name="actionClient_node" pkg="client_action" type="actionClient_node" output="screen"/>
+  <node name="Subscriber" pkg="client_action" type="Subscriber" output="screen"/>
+  <node name="duplicateOdom" pkg="client_action" type="duplicateOdom" output="screen"/>
+  <node name="custom_service" pkg="client_action" type="custom_service" output="screen"/>
+</launch>
+

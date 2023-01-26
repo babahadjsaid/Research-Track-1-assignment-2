@@ -1,0 +1,8 @@
+prefix=/root/Myassignment/install
+
+Name: client_action
+Description: Description of client_action
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

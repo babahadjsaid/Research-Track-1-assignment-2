@@ -1,4 +1,4 @@
-# Python Robotics Simulator Assignment
+# Robotics Simulator Assignment
 
 HADJ SAID Baba S5413915
 

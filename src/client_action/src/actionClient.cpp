@@ -32,6 +32,7 @@ int main (int argc, char **argv)
     {
       client_action.cancelGoal(); 
       ROS_INFO("Goal has been cancelled");
+      continue;
       //if q quit the node
     }else if(choice[0]=='q'){
       return 0;

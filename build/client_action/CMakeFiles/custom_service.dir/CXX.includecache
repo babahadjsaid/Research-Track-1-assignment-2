@@ -1223,8 +1223,6 @@ assignment_2_2022/PlanningAction.h
 -
 actionlib_msgs/GoalStatusArray.h
 -
-stdio.h
--
 std_msgs/String.h
 /root/Myassignment/src/client_action/src/std_msgs/String.h
 sstream

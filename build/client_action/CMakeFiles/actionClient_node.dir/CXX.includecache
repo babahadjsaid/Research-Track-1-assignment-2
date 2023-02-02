@@ -1000,22 +1000,6 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/opt/ros/noetic/include/std_msgs/String.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-
 /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 ros/macros.h
 -
@@ -1181,10 +1165,6 @@ actionlib/client/terminal_state.h
 -
 assignment_2_2022/PlanningAction.h
 -
-actionlib_msgs/GoalStatusArray.h
--
 stdio.h
 -
-std_msgs/String.h
-/root/Myassignment/src/client_action/src/std_msgs/String.h
 

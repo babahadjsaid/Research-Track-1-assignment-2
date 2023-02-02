@@ -35,12 +35,12 @@ void MyCallBack(const actionlib_msgs::GoalStatusArray::ConstPtr& msg){
 // callback function for the custom message topic
 void CustomMessageCallback(const client_action::custommsg::ConstPtr& msg){
     my_msg = *msg;
-    start = std::chrono::high_resolution_clock::now();  // set the start time
 }
 
 // callback function for the goal topic
 void goalCallback(const assignment_2_2022::PlanningActionGoal::ConstPtr& msg){
   goal = msg->goal;
+  start = std::chrono::high_resolution_clock::now();  // set the start time
   startingpose = my_msg.pose;
 }
 

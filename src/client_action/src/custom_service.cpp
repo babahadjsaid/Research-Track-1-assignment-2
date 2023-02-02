@@ -3,7 +3,7 @@
 #include <actionlib/client/terminal_state.h>
 #include <assignment_2_2022/PlanningAction.h>
 #include <actionlib_msgs/GoalStatusArray.h>
-#include <stdio.h>
+
 #include "std_msgs/String.h"
 #include <sstream>
 #include <std_srvs/Trigger.h>

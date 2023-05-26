@@ -1,3 +1,30 @@
+/**
+  * \file duplicateOdom.cpp 
+  * \brief duplicate the data of "/odom" topic
+  * 
+  * \param [in] PublishFreq Define the frequency of publishing.
+  * 
+  * \details
+  *
+  * Subscribes to: <BR>
+  *   ° /odom
+  *   ° /cmd_vel
+  *
+  * Publishes to: <BR>
+  *   ° duplicatedOdom
+  *
+  *
+  * Description :
+  * 
+  * This node subscribes to the '/odom' and '/cmd_vel' topics 
+  * and publishes a custom message containing the pose, linear velocity, and angular velocity to the 'duplicatedOdom' topic.
+  * The frequency of publishing is determined by the 'PublishFreq' parameter.
+  * 
+  * \author Baba HADJ SAID
+  * \date 24/05/2023
+*/
+
+
 #include <ros/ros.h>
 #include <stdio.h>
 #include "nav_msgs/Odometry.h"
@@ -5,21 +32,38 @@
 #include "client_action/custommsg.h" 
 
 
-geometry_msgs::Vector3 linear_vel,angular_vel;
-geometry_msgs::Point pose;
+geometry_msgs::Vector3 linear_vel,angular_vel; ///< Linear and angular velocity variables.
+geometry_msgs::Point pose; ///< Pose variable.
 
 
-//odom subscriber's callback 
+
+/**
+ * @brief Callback function for handling Odometry messages. 
+ * 
+ * 
+ * This callback function is called when a new Odometry message is received.
+ * It extracts the position information from the message and assigns it to the 'pose' variable.
+ * @param msg The Odometry message received.
+ 
+ */
 void OdomCallback(const nav_msgs::Odometry::ConstPtr& msg){
   
   pose = msg->pose.pose.position;
 }
-//cmd_vel subscriber's callback 
+/**
+ * @brief Callback function for handling Twist messages.
+ * 
+ * 
+ * This callback function is called when a new Twist message is received. 
+ * It extracts the linear and angular velocity information from the message and assigns them to the 'linear_vel' and 'angular_vel' variables respectively
+ * @param msg The Twist message received.
+ */
 void CmdvelCallback(const geometry_msgs::Twist::ConstPtr& msg){
 
   linear_vel = msg->linear;
   angular_vel = msg->angular;
 }
+
 
 int main (int argc, char **argv)
 {

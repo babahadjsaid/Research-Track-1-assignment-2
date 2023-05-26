@@ -1,9 +1,29 @@
+/**
+  * \file actionClient.cpp 
+  * \brief Creates an interface for the user.
+  * 
+  * \details
+  *
+  * Action Client: <BR>
+  *  ° /reaching_goal
+  *
+  * Description :
+  * 
+  * This node creates an interface that allows the user to send goals to the '/reaching_goal' action server.
+  * The user can enter a position in the format 'x,y' to navigate the robot to that position.
+  * The user can also enter 'c' to cancel the current goal or 'q' to exit the node.
+  *  
+  * \author Baba HADJ SAID
+  * \date 24/05/2023
+*/
+
+
+
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
 #include <assignment_2_2022/PlanningAction.h>
 #include <stdio.h>
-
 
 
 int main (int argc, char **argv)

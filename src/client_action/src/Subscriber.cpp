@@ -1,3 +1,28 @@
+
+/**
+  * \file Subscriber.cpp 
+  * \brief Stats on the robot performance.
+  * 
+  * \details
+  *
+  * Subscribes To: <BR>
+  *  ° /duplicatedOdom
+  *  ° /reaching_goal/goal
+  *  ° /reaching_goal/status
+  *
+  * Description :
+  * 
+  * This node subscribes to The custom message containing the robot's position and velocity. 
+  * It calculates the distance traveled by the robot and the average speed. 
+  * The calculated values are printed to the console.
+  *  
+  * \author Baba HADJ SAID
+  * \date 24/05/2023
+*/
+
+
+
+
 #include <ros/ros.h>
 #include <stdio.h>
 #include <assignment_2_2022/PlanningAction.h>
@@ -7,13 +32,24 @@
 #include <chrono>
 
 
-client_action::custommsg my_msg;  // creating an object of the custom message
-assignment_2_2022::PlanningGoal goal;  // creating an object of the goal message
-std::chrono::time_point<std::chrono::high_resolution_clock> start,end;  // creating time points for measuring time
-int status,tmp;  // variables for storing the current and previous status
-geometry_msgs::Point startingpose;  // variable for storing the starting position
 
-// callback function for the status topic
+client_action::custommsg my_msg;  ///< An object of the custom message type `client_action::custommsg`.
+assignment_2_2022::PlanningGoal goal;  ///< An object of the goal message type `assignment_2_2022::PlanningGoal`.
+std::chrono::time_point<std::chrono::high_resolution_clock> start,end;  ///< Time points created using `std::chrono::high_resolution_clock` for measuring time.
+int status,tmp;  ///< Variables for storing the current and previous status.
+geometry_msgs::Point startingpose;  ///< A variable of type `geometry_msgs::Point` used for storing the starting position.
+
+
+
+/**
+ * @brief Callback for calculating the stats.
+ *
+ * This function is called when a GoalStatusArray message is received on the '/reaching_goal/status' topic.
+ * It checks if the status is "Gooal Reached" if so performs calculations of the distance traveled and the average speed, if the status indicates goal completion.
+ * It then prints the calculated results.
+ *
+ * @param msg The GoalStatusArray message received.
+ */
 void MyCallBack(const actionlib_msgs::GoalStatusArray::ConstPtr& msg){
     if (!msg->status_list.empty()){
       status= msg->status_list[0].status;
@@ -32,12 +68,27 @@ void MyCallBack(const actionlib_msgs::GoalStatusArray::ConstPtr& msg){
     tmp = status;
 }
 
-// callback function for the custom message topic
+/**
+ * @brief Callback function for Updating the velocity and pose of the robot.
+ *
+ * This function is called when a custom message is received on the '/duplicatedOdom' topic.
+ * It copies the received message data into the 'my_msg' variable.
+ *
+ * @param msg The custom message received.
+ */
+
 void CustomMessageCallback(const client_action::custommsg::ConstPtr& msg){
     my_msg = *msg;
 }
 
-// callback function for the goal topic
+/**
+ * @brief Callback function for handling goal messages.
+ *
+ * This function is called when a goal message is received on the '/reaching_goal/goal' topic.
+ * to set the start time and starting position of the robot, it is needed for the calculations later.
+ *
+ * @param msg The goal message received.
+ */
 void goalCallback(const assignment_2_2022::PlanningActionGoal::ConstPtr& msg){
   goal = msg->goal;
   start = std::chrono::high_resolution_clock::now();  // set the start time

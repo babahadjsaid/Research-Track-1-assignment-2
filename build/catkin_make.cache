@@ -1,2 +1,0 @@
-assignment_2_2022:client_action
--DCATKIN_DEVEL_PREFIX=/root/Myassignment/devel -DCMAKE_INSTALL_PREFIX=/root/Myassignment/install -G Unix Makefiles
